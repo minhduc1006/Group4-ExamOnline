@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Xác nhận Email</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #dedede;
+            margin: 0;
+        }
+        .card {
+            margin-top: 100px;
+            margin-bottom: 100px;
+            margin-left: 25%;
+            width: 50%;
+            background: #ffffff;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #e5e7eb; /* border - màu xám nhạt giống Tailwind */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+            0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .button{
+            text-decoration: none;
+            padding: 0.5rem;
+            background-color: #f97316;
+            color: white;
+            border-radius: 0.5rem;
+            transition: all 0.3s ease-in-out;
+        }
+        .button:hover {
+            background-color: #ea580c; /* hover:bg-orange-600 */
+            transform: scale(1.05); /* hover:scale-105 */
+        }
+    </style>
+</head>
+<body>
+<div style="display: flex; width: 100%; align-items: center; justify-content: center; background-color: #ff7626">
+    <div class="card">
+        <p>Xin chào, đây là thư tự động của Edu Test</p>
+        <p>Vui lòng nhấn vào nút bên dưới để xác nhận yêu cầu <span th:text="${content}"></span> của bạn:</p>
+        <a th:href="${verifyLink}" class="button">Xác nhận</a>
+        <p>Nếu bạn không yêu cầu, vui lòng bỏ qua email này.</p>
+    </div>
+</div>
+
+
+</body>
+</html>
