@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: backend
+
+  datasource:
+    url: jdbc:sqlserver://${DATABASE_URL};databaseName=${DATABASE_NAME};trustServerCertificate=true;encrypt=false;
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+
+  jpa:
+    show-sql: true
+    database-platform: org.hibernate.dialect.SQLServerDialect
+    hibernate:
+      ddl-auto: none
+
+server:
+  port: 8080
+  servlet:
+    context-path: "/api/v1"
+
+jwt:
+  signerKey: "${SIGNER_KEY}"
+  refreshSignerKey: "${REFRESH_SIGNER_KEY}"
+  validTime: 300 #second
+  refreshTime: 2628000 #second (1 month)
+
+admin:
+  username: "${ADMIN_USER}"
+  password: "${ADMIN_PASS}"
+  role: ADMIN
+
