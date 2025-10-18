@@ -1,14 +1,20 @@
+"use client";
+
+import { useAuth } from "@/app/AuthProvider";
+import { useRouter } from "next/navigation";
+import { useToast } from "../ui/use-toast";
 import React from "react";
 
 const Course: React.FC = () => {
+  const { isAuthenticated } = useAuth();
+  const router = useRouter();
+  const { toast } = useToast();
+
   const courseData = [
     {
       title: "FREE COURSE",
       price: "Miễn Phí",
-      details: [
-        "Tham gia 5 vòng thi đầu tiên",
-        "Truy cập một phần kỳ thi",
-      ],
+      details: ["Tham gia 5 vòng thi đầu tiên", "Truy cập một phần kỳ thi"],
       link: "#",
     },
     {
@@ -33,12 +39,27 @@ const Course: React.FC = () => {
     },
   ];
 
+  // Xử lý khi bấm vào "MUA GÓI NGAY"
+  const handlePurchaseClick = (link: string) => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Vui lòng đăng nhập để tiếp tục!",
+        className: "text-white bg-orange-500",
+      });
+      router.push("/auth/login");
+    } else {
+      router.push(link);
+    }
+  };
+
   return (
     <div className="w-full py-8 bg-[#F5BA3A]">
       <div className="max-w-screen-xl mx-auto px-4">
-        <h2 className="text-center font-bold text-2xl mb-8 text-white">CÁC KHÓA HỌC EDUTEST</h2>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 ">
+        <h2 className="text-center font-bold text-2xl mb-8 text-white">
+          CÁC KHÓA HỌC EDUTEST
+        </h2>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {courseData.map((course, index) => (
             <div
               key={index}
@@ -46,7 +67,9 @@ const Course: React.FC = () => {
             >
               {/* Title Row */}
               <div className="flex justify-center mb-2">
-                <h2 className="text-xl font-bold text-center text-white">{course.title}</h2>
+                <h2 className="text-xl font-bold text-center text-white">
+                  {course.title}
+                </h2>
               </div>
 
               {/* Price Row */}
@@ -68,12 +91,12 @@ const Course: React.FC = () => {
 
               {/* Button Row */}
               <div className="flex justify-center">
-                <a
-                  href={course.link}
+                <button
+                  onClick={() => handlePurchaseClick(course.link)}
                   className="w-full mt-4 py-2 bg-white text-orange-600 rounded-full hover:bg-orange-600 hover:text-white transition-all duration-300 text-center"
                 >
                   MUA GÓI NGAY
-                </a>
+                </button>
               </div>
             </div>
           ))}

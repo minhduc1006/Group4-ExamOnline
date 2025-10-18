@@ -9,9 +9,10 @@ API.interceptors.request.use(
     const res = await fetch("/api/auth/token");
     const { accessToken } = await res.json();
 
-    if (!req.headers["Authorization"]) {
+    if (accessToken) {
       req.headers["Authorization"] = `Bearer ${accessToken}`;
     }
+    
     return req;
   },
   (error) => {

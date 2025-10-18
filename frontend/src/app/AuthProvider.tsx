@@ -16,6 +16,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isLoading: boolean;
   logout: () => Promise<void>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   login: (data: any) => Promise<void>;
 }
 
@@ -52,6 +53,7 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
     checkAuthStatus().then(() => setIsLoading(false));
   }, [checkAuthStatus]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const login = async (data: any) => {
     try {
       const response = await axios.post(
@@ -67,21 +69,23 @@ const AuthProvider: React.FC<IAuthProviderProps> = ({ children }) => {
       );
       await storeToken(response.data, data.rememberMe);
       setIsAuthenticated(true);
-      router.push("/");
+      return response.data;
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       throw new Error(err.message);
     }
   };
 
   const logout = async () => {
-    const res = await fetch("api/auth/logout", {
+    const res = await fetch("/api/auth/logout", {
       method: "POST",
       credentials: "include",
       cache: "no-cache",
     });
     if (!res.ok) {
       setIsAuthenticated(false);
-      router.push("/auth/login");
+      router.push("/");
     }
     setIsAuthenticated(false);
     router.replace("/");

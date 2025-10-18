@@ -45,7 +45,7 @@ public class RefreshTokenService implements IRefreshTokenService {
         var jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .issuer("flexnet.com")
+                .issuer("caodoanhchinh")
                 .subject(user.getUsername())
                 .issueTime(new Date())
                 .jwtID(UUID.randomUUID().toString())
@@ -80,6 +80,11 @@ public class RefreshTokenService implements IRefreshTokenService {
     public void deleteToken(String token) {
         String tokenId = extractJwtId(token);
         refreshTokenRepository.deleteById(tokenId);
+    }
+
+    @Override
+    public void deleteByUserId(Long userId) {
+        refreshTokenRepository.deleteByUserId(userId);
     }
 
     private JWTClaimsSet extractAllClams(String token) {

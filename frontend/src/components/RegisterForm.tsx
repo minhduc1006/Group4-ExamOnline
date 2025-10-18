@@ -39,9 +39,9 @@ const RegisterForm = () => {
       if (response.data) {
         toast({
           title: "Đăng ký thành công",
-          className: "text-green-500 bg-neutral-800",
+          className: "text-white bg-green-500",
         });
-        router.push("/login");
+        router.push("/auth/login");
       }
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {

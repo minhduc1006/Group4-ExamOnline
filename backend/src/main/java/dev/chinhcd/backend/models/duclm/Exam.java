@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "exam")
@@ -14,15 +14,22 @@ import java.sql.Time;
 @NoArgsConstructor
 public class Exam {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int level;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "exam_id")
+    private Long examId;
 
-    @Column
-    private Time start_time;
+    @Column(name = "exam_start", columnDefinition = "DATETIME2")
+    private LocalDateTime examStart;
 
-    @Column
-    private Time end_time;
+    @Column(name = "exam_end", columnDefinition = "DATETIME2")
+    private LocalDateTime examEnd;
 
+    @Column(name = "exam_name", columnDefinition = "NVARCHAR(50)")
+    private String examName;
 
+    @Column(name = "grade")
+    private int grade;
+
+    @Column(name = "status", columnDefinition = "NVARCHAR(50)")
+    private String status;
 }
-

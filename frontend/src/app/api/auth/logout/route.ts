@@ -27,13 +27,22 @@ export async function POST(req: NextRequest, res: NextResponse) {
     (await cookies()).delete("access_token");
     (await cookies()).delete("refresh_token");
 
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("logout"));
+    }
+
     return NextResponse.json(result.data, {
       status: result.status,
     });
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (error) {
     (await cookies()).delete("access_token");
     (await cookies()).delete("refresh_token");
+
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new Event("logout"));
+    }
+
     return NextResponse.json(
       {
         message: "Invalid refreshToken",

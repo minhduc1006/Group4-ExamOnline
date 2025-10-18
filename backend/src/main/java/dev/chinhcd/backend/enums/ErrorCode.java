@@ -11,7 +11,8 @@ public enum ErrorCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "User Not Found"),
     UNAUTHENTICATED(HttpStatus.UNAUTHORIZED, "Unauthenticated"),
     UNAUTHORIZED(HttpStatus.FORBIDDEN, "You Do Not Have Permission"),
-    INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid Refresh Token");
+    INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid Refresh Token"),
+    WRONG_PASSWORD(HttpStatus.UNAUTHORIZED, "Wrong Password");
 
     private final HttpStatus httpStatus;
     private final String message;

@@ -28,7 +28,6 @@ export async function storeToken(
     (await cookies()).set({
       name: "refresh_token",
       value: request.refreshToken,
-      maxAge: 60 * 60 * 24,
       httpOnly: true,
     });
   }

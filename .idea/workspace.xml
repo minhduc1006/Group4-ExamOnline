@@ -5,10 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0a61fe97-79aa-4e8f-a16c-1bacd0a8cff9" name="Changes" comment="Create backend">
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/(login)/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(login)/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/dev/chinhcd/backend/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/dev/chinhcd/backend/config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/dev/chinhcd/backend/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/dev/chinhcd/backend/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/dev/chinhcd/backend/services/impl/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/dev/chinhcd/backend/services/impl/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/AuthProvider.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/AuthProvider.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/helper/urlPath.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/helper/urlPath.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/type.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/type.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,21 +23,21 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "ChinhCDHE181478"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ChinhCDHE181478&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/ChinhCDHE181478/SWP-project.git",
-    "accountId": "03d7b967-dba4-46ff-9dd4-5361f8815c35"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ChinhCDHE181478/SWP-project.git&quot;,
+    &quot;accountId&quot;: &quot;03d7b967-dba4-46ff-9dd4-5361f8815c35&quot;
   }
-}]]></component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 8
-}]]></component>
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
   <component name="ProjectId" id="2sfsz65MlEveVM5zQmHzxVqqHDP" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -41,24 +45,58 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.BackendApplication.executor": "Coverage",
+    "Maven.Unnamed.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SONARLINT_PRECOMMIT_ANALYSIS": "true",
     "git-widget-placeholder": "chinhcd",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Chinh/Documents/GitHub/SWP-project",
+    "last_opened_file_path": "C:/Users/Chinh/Documents/GitHub/SWP-project/backend",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="BackendApplication" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="dev.chinhcd.backend.BackendApplication" />
+      <option name="PROGRAM_PARAMETERS" value="$MAVEN_REPOSITORY$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dev.chinhcd.backend.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="SWP-project" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="SWP-project" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.22855.74" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.22855.74" />
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.24807.4" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.24807.4" />
       </set>
     </attachedChunks>
   </component>
@@ -71,6 +109,10 @@
       <option name="presentableId" value="Default" />
       <updated>1738858222268</updated>
       <workItem from="1738858223467" duration="645000" />
+      <workItem from="1739117853673" duration="64000" />
+      <workItem from="1739117925999" duration="103000" />
+      <workItem from="1739118327929" duration="521000" />
+      <workItem from="1739118890497" duration="363000" />
     </task>
     <task id="LOCAL-00001" summary="Create backend">
       <option name="closed" value="true" />
@@ -89,5 +131,10 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Create backend" />
     <option name="LAST_COMMIT_MESSAGE" value="Create backend" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/SWP_project$BackendApplication.ic" NAME="BackendApplication Coverage Results" MODIFIED="1739118969043" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="true">
+      <FILTER>dev.chinhcd.backend.*</FILTER>
+    </SUITE>
   </component>
 </project>

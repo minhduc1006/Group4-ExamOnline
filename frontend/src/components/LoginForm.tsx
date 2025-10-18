@@ -11,12 +11,24 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useAuth } from "@/app/AuthProvider";
 import { useToast } from "./ui/use-toast";
+import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
+import axios from "axios";
 
 const LoginForm = () => {
   const { login } = useAuth();
   const { toast } = useToast();
   const [formError, setFormError] = useState<string>("");
   const [rememberMe, setRememberMe] = useState<boolean>(false);
+  const router = useRouter();
+
+  const routes: Record<string, string> = {
+    USER: "/",
+    ADMIN: "/manager/account-manager",
+    QUIZ_MANAGER: "/manager/quiz-manager",
+    SUPPORT_MANAGER: "/manager/support-manager",
+    CONTENT_MANAGER: "/manager/content-manager",
+  };
 
   const onSubmit = async (data: z.infer<typeof loginSchema>) => {
     setFormError("");
@@ -27,9 +39,32 @@ const LoginForm = () => {
         password: data.password,
         rememberMe: rememberMe,
       });
+
+      const { data: isNewUser } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/is-new-user`,
+        {
+          params: { username: data.username }, 
+          headers: { 
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      
+      const res = await fetch("/api/auth/token");
+      const { accessToken } = await res.json();
+      const decoded = jwtDecode<{ scope?: string }>(accessToken);
+      const scope = decoded?.scope;
+      if (isNewUser === true && scope === "USER") {
+        router.push("/update-profile");
+        return toast({
+          title: "Đăng nhập thành công!",
+          className: "text-white bg-green-500",
+        });
+      }
+      router.push(routes[scope ?? ""] || "/");
       toast({
         title: "Đăng nhập thành công!",
-        className: "text-green-500 bg-neutral-800",
+        className: "text-white bg-green-500",
       });
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (error) {
@@ -58,14 +93,16 @@ const LoginForm = () => {
             const error = form.formState.errors?.username;
             return (
               <>
-                <label htmlFor="Username" style={{}}>
+                <label htmlFor="Username">
                   Tài khoản
                 </label>
                 <Input
                   type="text"
                   placeholder="username"
                   autoComplete="username"
-                  errorMessage={<span className="text-red-500">{error?.message}</span>}
+                  errorMessage={
+                    <span className="text-red-500">{error?.message}</span>
+                  }
                   isInvalid={!!error?.message}
                   radius="sm"
                   className={`p-2 border ${
@@ -84,14 +121,16 @@ const LoginForm = () => {
             const error = form.formState.errors?.password;
             return (
               <>
-                <label htmlFor="Password" style={{}}>
+                <label htmlFor="Password">
                   Mật khẩu
                 </label>
                 <Input
                   type="password"
                   placeholder="password"
                   autoComplete="password"
-                  errorMessage={<span className="text-red-500">{error?.message}</span>}
+                  errorMessage={
+                    <span className="text-red-500">{error?.message}</span>
+                  }
                   isInvalid={!!error?.message}
                   radius="sm"
                   className={`p-2 border ${
@@ -108,12 +147,12 @@ const LoginForm = () => {
             <Checkbox
               color="primary"
               onChange={() => setRememberMe(!rememberMe)}
-              className="mt-5"
+              className=""
             ></Checkbox>
             <label htmlFor="Remember me">Ghi nhớ</label>
           </div>
           <span>
-            <Link className="text-blue-500" href={"/forgot"}>
+            <Link className="text-blue-500" href={"/email-service/forgot"}>
               Quên mật khẩu
             </Link>
           </span>

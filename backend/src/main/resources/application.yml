@@ -3,9 +3,9 @@ spring:
     name: backend
 
   datasource:
-    url: jdbc:sqlserver://${DATABASE_URL};databaseName=${DATABASE_NAME};trustServerCertificate=true;encrypt=false;
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:sqlserver://DESKTOP-8MC2SNF\\MSSQLSERVER01:1433;databaseName=Test;encrypt=false;
+    username: sa
+    password: 123
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
 
   jpa:
@@ -13,6 +13,18 @@ spring:
     database-platform: org.hibernate.dialect.SQLServerDialect
     hibernate:
       ddl-auto: update
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: "${MAIL}"
+    password: "${MAILPASS}"
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 
 server:
   port: 8080
@@ -25,4 +37,6 @@ jwt:
   validTime: 300 #second
   refreshTime: 2628000 #second (1 month)
 
+frontend:
+  url: "${FRONTEND_URL}"
 

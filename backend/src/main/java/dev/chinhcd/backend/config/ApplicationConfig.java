@@ -1,5 +1,6 @@
 package dev.chinhcd.backend.config;
 
+import dev.chinhcd.backend.enums.AccountType;
 import dev.chinhcd.backend.enums.Role;
 import dev.chinhcd.backend.models.User;
 import dev.chinhcd.backend.repository.IUserRepository;
@@ -30,6 +31,8 @@ public class ApplicationConfig {
                 admin.setUsername("admin");
                 admin.setPassword(passwordEncoder().encode("admin"));
                 admin.setRole(Role.ADMIN);
+                admin.setIsDoingExam(false);
+                admin.setAccountType(AccountType.FREE_COURSE);
 
                 userRepository.save(admin);
                 log.info("Admin has been created: {}", admin.getUsername());

@@ -73,7 +73,7 @@ public class JwtService implements IJwtService {
         var jwsHeader = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .issuer("flexnet.com")
+                .issuer("caodoanhchinh")
                 .subject(user.getUsername())
                 .issueTime(new Date())
                 .expirationTime(new Date(Instant.now().plusSeconds(accessExpire).toEpochMilli()))
