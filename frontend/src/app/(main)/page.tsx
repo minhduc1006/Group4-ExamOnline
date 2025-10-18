@@ -1,9 +1,15 @@
+import HomeInformation from '@/components/duclm/HomeInformation';
+import News from '@/components/duclm/News';
+import Course from '@/components/duclm/Course';
+
 const Main = () => {
   return (
-    <div className="text-center justify-center text-slate-950">
-        This is home page
+    <div>
+      <HomeInformation />
+      <News />
+      <Course />
     </div>
   );
-};
+}
 
 export default Main;
