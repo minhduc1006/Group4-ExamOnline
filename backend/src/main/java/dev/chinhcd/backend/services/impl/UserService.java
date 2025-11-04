@@ -10,10 +10,10 @@ import dev.chinhcd.backend.enums.Role;
 import dev.chinhcd.backend.exception.ServiceException;
 import dev.chinhcd.backend.models.User;
 import dev.chinhcd.backend.repository.IUserRepository;
-//import dev.chinhcd.backend.repository.duclm.IUserExamRepository;
-//import dev.chinhcd.backend.repository.duclm.IUserMockExamRepository;
-//import dev.chinhcd.backend.repository.duclm.IUserPracticeRepository;
-//import dev.chinhcd.backend.services.IEmailService;
+import dev.chinhcd.backend.repository.duclm.IUserExamRepository;
+import dev.chinhcd.backend.repository.duclm.IUserMockExamRepository;
+import dev.chinhcd.backend.repository.duclm.IUserPracticeRepository;
+import dev.chinhcd.backend.services.IEmailService;
 import dev.chinhcd.backend.services.IJwtService;
 import dev.chinhcd.backend.services.IRefreshTokenService;
 import dev.chinhcd.backend.services.IUserService;
@@ -42,11 +42,11 @@ public class UserService implements IUserService {
     private final PasswordEncoder passwordEncoder;
     private final IJwtService jwtService;
     private final IRefreshTokenService refreshTokenService;
-//    private final IUserExamRepository userExamService;
-//    private final IUserMockExamRepository userMockExamService;
-//    private final IUserPracticeRepository userPracticeService;
-//    private final KafkaTemplate<String, Object> kafkaTemplate;
-//    private final IEmailService emailService;
+    private final IUserExamRepository userExamService;
+    private final IUserMockExamRepository userMockExamService;
+    private final IUserPracticeRepository userPracticeService;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final IEmailService emailService;
 
 
     @Override
@@ -140,7 +140,7 @@ public class UserService implements IUserService {
                 .orElseThrow(() -> new ServiceException(ErrorCode.USER_NOT_FOUND));
         String token = jwtService.generateAccessToken(user);
         EmailInforDTO emailInfor = new EmailInforDTO(request.email(), "Yêu cầu thêm email", "thêm email", token, "/email-service/add-email", request.id());
-//        kafkaTemplate.send("email", emailInfor);
+        kafkaTemplate.send("email", emailInfor);
         return true;
     }
 
@@ -159,12 +159,12 @@ public class UserService implements IUserService {
 
     @Override
     public Boolean requestDeleteMail(Long id) {
-//        kafkaTemplate.send("email", id + "");
+        kafkaTemplate.send("email", id + "");
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ServiceException(ErrorCode.USER_NOT_FOUND));
         String token = jwtService.generateAccessToken(user);
         EmailInforDTO emailInforDTO = new EmailInforDTO(user.getEmail(), "Yêu cầu xóa email", "xóa email", token, "/email-service/delete-email", id);
-//        kafkaTemplate.send("email", emailInforDTO);
+        kafkaTemplate.send("email", emailInforDTO);
         return true;
     }
 
@@ -202,7 +202,7 @@ public class UserService implements IUserService {
         }
         String token = jwtService.generateAccessToken(user);
         EmailInforDTO emailInforDTO = new EmailInforDTO(user.getEmail(), "Yêu cầu quên mật khẩu", "quên mật khẩu", token, "/email-service/forgot", user.getId());
-//        kafkaTemplate.send("email", emailInforDTO);
+        kafkaTemplate.send("email", emailInforDTO);
         return true;
     }
 
@@ -248,7 +248,7 @@ public class UserService implements IUserService {
                 .build();
         userRepository.save(user);
         UserInforDTO userInforDTO = new UserInforDTO(user.getUsername(), request.password(), user.getEmail());
-//        kafkaTemplate.send("admin-create-account", userInforDTO);
+        kafkaTemplate.send("admin-create-account", userInforDTO);
         return true;
     }
 
@@ -261,7 +261,7 @@ public class UserService implements IUserService {
         if(!user.getEmail().isBlank() && user.getEmail() != null) {
             String subject = "Mail tạo tài khoản";
             String content = "Mật khẩu mới của bạn là: " + request.newPassword();
-//            emailService.sendMail(user.getEmail(), subject, content);
+            emailService.sendMail(user.getEmail(), subject, content);
         }
         return true;
     }
@@ -326,23 +326,23 @@ public class UserService implements IUserService {
         userRepository.save(user);
     }
 
-//    @Override
-//    public AchievementResponse getAchievement() {
-//        User user = getCurrentUser();
-//        List<UserExamResponse> examList = userExamService.findArchieves(user.getGrade(), user.getId()).stream().map(a -> {
-//            return new UserExamResponse(a.getExamName(), a.getScore(), a.getTotalTime());
-//        }).collect(Collectors.toList());
-//        List<UserExamResponse> mockExamList = userMockExamService.findArchieves(user.getGrade(), user.getId()).stream().map(a -> {
-//            return new UserExamResponse(a.getExamName(), a.getScore(), a.getTotalTime());
-//        }).collect(Collectors.toList());
-//        List<UserPracticeResponse> practiceList = userPracticeService.findBestPracticeByUserAndGrade(user.getId(), user.getGrade()).stream().map(a -> {
-//            return new UserPracticeResponse("Bài " + a.getPractice().getPracticeLevel(), a.getTotalScore()*1.0d, a.getTotalTime());
-//        }).collect(Collectors.toList());
-//        Long totalExam = userExamService.getTotalExamTime(user.getId(), user.getGrade());
-//        Long totalMock = userMockExamService.getTotalExamTime(user.getId(), user.getGrade());
-//        Long totalPractice = userPracticeService.getTotalPracticeTime(user.getId(), user.getGrade());
-//        return new AchievementResponse(examList, mockExamList, practiceList, totalExam, totalMock, totalPractice);
-//    }
+    @Override
+    public AchievementResponse getAchievement() {
+        User user = getCurrentUser();
+        List<UserExamResponse> examList = userExamService.findArchieves(user.getGrade(), user.getId()).stream().map(a -> {
+            return new UserExamResponse(a.getExamName(), a.getScore(), a.getTotalTime());
+        }).collect(Collectors.toList());
+        List<UserExamResponse> mockExamList = userMockExamService.findArchieves(user.getGrade(), user.getId()).stream().map(a -> {
+            return new UserExamResponse(a.getExamName(), a.getScore(), a.getTotalTime());
+        }).collect(Collectors.toList());
+        List<UserPracticeResponse> practiceList = userPracticeService.findBestPracticeByUserAndGrade(user.getId(), user.getGrade()).stream().map(a -> {
+            return new UserPracticeResponse("Bài " + a.getPractice().getPracticeLevel(), a.getTotalScore()*1.0d, a.getTotalTime());
+        }).collect(Collectors.toList());
+        Long totalExam = userExamService.getTotalExamTime(user.getId(), user.getGrade());
+        Long totalMock = userMockExamService.getTotalExamTime(user.getId(), user.getGrade());
+        Long totalPractice = userPracticeService.getTotalPracticeTime(user.getId(), user.getGrade());
+        return new AchievementResponse(examList, mockExamList, practiceList, totalExam, totalMock, totalPractice);
+    }
 
     @Override
     public void checkPackageExpired(User user) {
