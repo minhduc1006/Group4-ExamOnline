@@ -57,7 +57,7 @@ public interface IUserService {
 
     void saveUser(User user);
 
-//    AchievementResponse getAchievement();
+    AchievementResponse getAchievement();
 
     void unlockUser(Long id);
 
