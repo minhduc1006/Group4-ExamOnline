@@ -126,11 +126,11 @@ public class UserController {
         return ResponseEntity.ok(userService.getPaginatedUsers(page, pageSize, username, email, accountType, sort));
     }
 
-//    @PreAuthorize("hasAnyAuthority('STUDENT')")
-//    @GetMapping("/get-achievements")
-//    public ResponseEntity<AchievementResponse> getAchievements() {
-//        return ResponseEntity.ok().body(userService.getAchievement());
-//    }
+    @PreAuthorize("hasAnyAuthority('STUDENT')")
+    @GetMapping("/get-achievements")
+    public ResponseEntity<AchievementResponse> getAchievements() {
+        return ResponseEntity.ok().body(userService.getAchievement());
+    }
 
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     @PutMapping("/unlock/{id}")
