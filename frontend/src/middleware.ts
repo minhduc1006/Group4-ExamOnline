@@ -137,9 +137,9 @@ export async function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // if (!allPath.includes(currentPath)) {
-  //   return NextResponse.redirect(new URL("/not-found", request.url));
-  // }
+  if (!allPath.includes(currentPath)) {
+    return NextResponse.redirect(new URL("/not-found", request.url));
+  }
 
   const cookieStore = cookies();
   const refreshToken = (await cookieStore).get("refresh_token")?.value;
@@ -147,34 +147,34 @@ export async function middleware(request: NextRequest) {
   console.log(currentPath);
   console.log(refreshToken);
 
-  // if (!refreshToken) {
-  //   if (!guestPath.includes(currentPath)) {
-  //     return NextResponse.redirect(new URL("/auth/login", request.url));
-  //   }
-  //   return NextResponse.next();
-  // }
+  if (!refreshToken) {
+    if (!guestPath.includes(currentPath)) {
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
+    return NextResponse.next();
+  }
 
-  // if (refreshToken && onlyGuestPath.includes(currentPath)) {
-  //   return NextResponse.redirect(new URL("/", request.url));
-  // }
+  if (refreshToken && onlyGuestPath.includes(currentPath)) {
+    return NextResponse.redirect(new URL("/", request.url));
+  }
 
-  // if (accessToken) {
-  //   try {
-  //     const decoded = jwtDecode<{ scope?: string }>(accessToken);
-  //     const scope = decoded?.scope;
+  if (accessToken) {
+    try {
+      const decoded = jwtDecode<{ scope?: string }>(accessToken);
+      const scope = decoded?.scope;
 
-  //     console.log("scope:", scope);
+      console.log("scope:", scope);
 
-  //     if (!scope || !rolePaths[scope]?.includes(currentPath)) {
-  //       return NextResponse.redirect(new URL("/access-denied", request.url));
-  //     }
+      if (!scope || !rolePaths[scope]?.includes(currentPath)) {
+        return NextResponse.redirect(new URL("/access-denied", request.url));
+      }
 
-  //     return NextResponse.next();
-  //   } catch (error) {
-  //     console.error("error decode:", error);
-  //     return NextResponse.redirect(new URL("/auth/login", request.url));
-  //   }
-  // }
+      return NextResponse.next();
+    } catch (error) {
+      console.error("error decode:", error);
+      return NextResponse.redirect(new URL("/auth/login", request.url));
+    }
+  }
 
   return NextResponse.next();
 }

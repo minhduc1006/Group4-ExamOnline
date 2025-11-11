@@ -9,3 +9,4 @@ public record SupportRequestDTO(
         String status
 ) {
 }
+
