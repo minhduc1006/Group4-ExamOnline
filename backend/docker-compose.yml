@@ -1,6 +1,6 @@
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper
+    image: confluentinc/cp-zookeeper:7.4.4
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -9,7 +9,7 @@ services:
     restart: "on-failure"
 
   kafka-1:
-    image: confluentinc/cp-kafka
+    image: confluentinc/cp-kafka:7.4.4
     depends_on:
       - zookeeper
     ports:
